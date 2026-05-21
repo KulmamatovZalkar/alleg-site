@@ -1,10 +1,11 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Calendar, MapPin, Gift } from "lucide-react";
 
-import type { BusinessTourOfferDTO, SiteSettingsDTO } from "@/lib/api";
 import Countdown from "@/components/ui/Countdown";
+import { useFadeIn } from "@/lib/useFadeIn";
+import type { BusinessTourOfferDTO, SiteSettingsDTO } from "@/types/api";
 
 export default function BusinessTourBlock({
   offer,
@@ -13,7 +14,7 @@ export default function BusinessTourBlock({
   offer: BusinessTourOfferDTO;
   settings: SiteSettingsDTO;
 }) {
-  const reduce = useReducedMotion();
+  const fade = useFadeIn();
   if (!offer.is_active) return null;
 
   const startDate = offer.start_date
@@ -33,13 +34,7 @@ export default function BusinessTourBlock({
       <div className="pointer-events-none absolute -right-32 -top-32 h-72 w-72 rounded-full bg-gold-500/20 blur-[100px] sm:h-96 sm:w-96" />
       <div className="pointer-events-none absolute -bottom-32 -left-32 h-72 w-72 rounded-full bg-wine-500/20 blur-[100px] sm:h-96 sm:w-96" />
 
-      <motion.div
-        initial={reduce ? false : { opacity: 0, y: 20 }}
-        whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-        className="relative"
-      >
+      <motion.div {...fade} className="relative">
         <div className="eyebrow mb-3 sm:mb-4">Закрытый бизнес-тур</div>
         <h3 className="font-serif text-2xl text-white sm:text-4xl lg:text-5xl">
           3 дня, которые перепрошьют{" "}

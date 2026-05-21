@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Award,
   Briefcase,
@@ -13,6 +13,7 @@ import {
 
 import VideoEmbed from "@/components/ui/VideoEmbed";
 import { getMediaUrl } from "@/lib/api";
+import { useFadeIn } from "@/lib/useFadeIn";
 import type { SiteSettingsDTO } from "@/types/api";
 
 const STATS = [
@@ -50,7 +51,10 @@ export default function About({ settings }: { settings: SiteSettingsDTO }) {
   const photo2 = getMediaUrl(settings.about_photo_2);
   const photo3 = getMediaUrl(settings.about_photo_3);
   const videoInfo = settings.about_video_url_info;
-  const reduce = useReducedMotion();
+
+  const fadeIntro = useFadeIn();
+  const fadeMedia = useFadeIn(0.06);
+  const fadePhilosophy = useFadeIn();
 
   const hasGallery = !!(photo2 || photo3);
 
@@ -58,13 +62,7 @@ export default function About({ settings }: { settings: SiteSettingsDTO }) {
     <div className="space-y-12 sm:space-y-16">
       {/* Top: title + lead + media */}
       <div className="grid items-start gap-8 sm:gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 20 }}
-          whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="order-2 lg:order-1"
-        >
+        <motion.div {...fadeIntro} className="order-2 lg:order-1">
           <div className="eyebrow mb-3 sm:mb-4">Кто такой Аллег Ким</div>
           <h2 className="font-serif text-3xl text-white sm:text-5xl lg:text-6xl">
             {settings.about_title}
@@ -98,13 +96,7 @@ export default function About({ settings }: { settings: SiteSettingsDTO }) {
         </motion.div>
 
         {/* Photo / Video */}
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 20 }}
-          whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.55, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
-          className="order-1 lg:order-2"
-        >
+        <motion.div {...fadeMedia} className="order-1 lg:order-2">
           {videoInfo ? (
             <VideoEmbed
               info={videoInfo}
@@ -162,30 +154,7 @@ export default function About({ settings }: { settings: SiteSettingsDTO }) {
       {/* Stats row */}
       <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {STATS.map((stat, i) => (
-          <motion.div
-            key={stat.value}
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{
-              duration: 0.45,
-              delay: Math.min(i * 0.05, 0.18),
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="card-surface group p-5 sm:p-6"
-          >
-            <stat.icon
-              size={22}
-              className="text-gold-300 transition group-hover:scale-110"
-              strokeWidth={1.6}
-            />
-            <div className="mt-4 font-serif text-3xl text-white sm:text-4xl">
-              {stat.value}
-            </div>
-            <div className="mt-1.5 text-[11px] uppercase tracking-wider text-white/55 sm:text-xs">
-              {stat.label}
-            </div>
-          </motion.div>
+          <StatCard key={stat.value} stat={stat} delay={i * 0.05} />
         ))}
       </div>
 
@@ -195,7 +164,6 @@ export default function About({ settings }: { settings: SiteSettingsDTO }) {
           icon={<Briefcase size={20} />}
           title="Путь практика"
           delay={0}
-          reduce={!!reduce}
         >
           <p>
             25 лет непрерывной практики в предпринимательстве и HORECA.
@@ -209,7 +177,6 @@ export default function About({ settings }: { settings: SiteSettingsDTO }) {
           icon={<GraduationCap size={20} />}
           title="Глубина методологии"
           delay={0.07}
-          reduce={!!reduce}
         >
           <p>
             <span className="font-semibold text-gold-200">6 лет</span> обучения
@@ -224,7 +191,6 @@ export default function About({ settings }: { settings: SiteSettingsDTO }) {
           icon={<Sparkles size={20} />}
           title="Лучший кейс — собственный"
           delay={0.14}
-          reduce={!!reduce}
         >
           <p>
             Внедрив методологию науки Сюцай в свою компанию,{" "}
@@ -239,10 +205,7 @@ export default function About({ settings }: { settings: SiteSettingsDTO }) {
 
       {/* Philosophy pullout */}
       <motion.div
-        initial={reduce ? false : { opacity: 0, y: 20 }}
-        whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        {...fadePhilosophy}
         className="relative overflow-hidden rounded-[1.75rem] border border-gold-300/25 bg-gradient-to-br from-ink-900 via-ink-900 to-ink-800 p-7 sm:rounded-[2rem] sm:p-12"
       >
         <div className="pointer-events-none absolute -right-32 -top-32 h-72 w-72 rounded-full bg-gold-500/15 blur-[100px] sm:h-96 sm:w-96" />
@@ -273,25 +236,46 @@ export default function About({ settings }: { settings: SiteSettingsDTO }) {
   );
 }
 
+function StatCard({
+  stat,
+  delay,
+}: {
+  stat: (typeof STATS)[number];
+  delay: number;
+}) {
+  const fade = useFadeIn(delay);
+  return (
+    <motion.div {...fade} className="card-surface group p-5 sm:p-6">
+      <stat.icon
+        size={22}
+        className="text-gold-300 transition group-hover:scale-110"
+        strokeWidth={1.6}
+      />
+      <div className="mt-4 font-serif text-3xl text-white sm:text-4xl">
+        {stat.value}
+      </div>
+      <div className="mt-1.5 text-[11px] uppercase tracking-wider text-white/55 sm:text-xs">
+        {stat.label}
+      </div>
+    </motion.div>
+  );
+}
+
 function StoryCard({
   icon,
   title,
   delay,
-  reduce,
   children,
 }: {
   icon: React.ReactNode;
   title: string;
   delay: number;
-  reduce: boolean;
   children: React.ReactNode;
 }) {
+  const fade = useFadeIn(delay);
   return (
     <motion.article
-      initial={reduce ? false : { opacity: 0, y: 18 }}
-      whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
+      {...fade}
       className="card-surface flex h-full flex-col p-6 sm:p-7"
     >
       <span className="flex h-11 w-11 items-center justify-center rounded-2xl border border-gold-300/25 bg-gold-300/[0.06] text-gold-200">
