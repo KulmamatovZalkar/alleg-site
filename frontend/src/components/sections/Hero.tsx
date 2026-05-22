@@ -25,20 +25,23 @@ export default function Hero({ settings, slides }: Props) {
   return (
     <section className="relative min-h-[100svh] overflow-hidden pt-24 sm:pt-32">
       {/* Фон: HeroBackground сам решит — видео, слайдшоу или постер */}
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 z-0">
         <HeroBackground settings={settings} slides={slides} />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink-950/70 via-ink-950/85 to-ink-950" />
+        {/* Боковой градиент справа-налево, чтобы текст слева был читаем,
+            а правая часть оставалась с видимым фото. И мягкое затемнение снизу. */}
+        <div className="absolute inset-0 bg-gradient-to-r from-ink-950/90 via-ink-950/50 to-ink-950/20 lg:from-ink-950/85 lg:via-ink-950/30 lg:to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-ink-950" />
       </div>
 
-      <div className="pointer-events-none absolute -left-40 top-20 -z-10 h-72 w-72 rounded-full bg-gold-500/15 blur-[100px] sm:h-96 sm:w-96" />
-      <div className="pointer-events-none absolute -right-40 bottom-20 -z-10 h-72 w-72 rounded-full bg-wine-500/15 blur-[100px] sm:h-96 sm:w-96" />
+      <div className="pointer-events-none absolute -left-40 top-20 z-0 h-72 w-72 rounded-full bg-gold-500/15 blur-[100px] sm:h-96 sm:w-96" />
+      <div className="pointer-events-none absolute -right-40 bottom-20 z-0 h-72 w-72 rounded-full bg-wine-500/15 blur-[100px] sm:h-96 sm:w-96" />
 
-      <div className="container-page relative flex min-h-[88svh] flex-col justify-center pb-16 sm:pb-24">
+      <div className="container-page relative z-10 flex min-h-[88svh] flex-col justify-center pb-16 sm:pb-24">
         <motion.div
           {...fade}
           className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-gold-300/30 bg-white/[0.04] px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] text-gold-200 backdrop-blur sm:mb-8 sm:px-4 sm:py-2 sm:text-xs sm:tracking-[0.3em]"
         >
-          25 лет · Дубай · 1000+ консультаций
+          Консультации · Бизнес-тур · STI Dubai
         </motion.div>
 
         <motion.h1

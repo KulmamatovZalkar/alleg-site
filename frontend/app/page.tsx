@@ -51,8 +51,8 @@ export default async function HomePage() {
           <section className="section" id="achievements">
             <div className="container-page">
               <SectionTitle
-                eyebrow="Цифры, которые говорят сами за себя"
-                title="Опыт, который |невозможно подделать|"
+                eyebrow="Коротко"
+                title="Опыт и |факты|"
                 align="center"
               />
               <div className="mt-14">
@@ -66,8 +66,8 @@ export default async function HomePage() {
           <section className="section" id="pains">
             <div className="container-page">
               <SectionTitle
-                eyebrow="Знакомо?"
-                title="Если хотя бы 2 пункта про вас — |мы говорим на одном языке|"
+                eyebrow="С чем приходят"
+                title="Типовые ситуации |собственников|"
                 align="center"
               />
               <div className="mt-12">
@@ -82,8 +82,8 @@ export default async function HomePage() {
             <div className="container-page">
               <SectionTitle
                 eyebrow="Что я делаю"
-                title="Направления |для системного роста|"
-                subtitle="От трансформации мышления до построения международного бизнеса. Выбирайте формат под вашу задачу."
+                title="Направления |работы|"
+                subtitle="Формат подбираем под задачу — личная консультация, аудит, бизнес-тур."
               />
               <div className="mt-14">
                 <Services items={services} />
@@ -119,8 +119,8 @@ export default async function HomePage() {
             <div className="container-page">
               <SectionTitle
                 eyebrow="Кейсы"
-                title="Результаты, |которые можно измерить|"
-                subtitle="Реальные клиенты, реальные цифры. Все кейсы — с согласия владельцев."
+                title="Из практики |консультаций|"
+                subtitle="Имена и детали изменены или скрыты по просьбе клиентов."
               />
               <div className="mt-14">
                 <Cases items={cases} />
@@ -138,8 +138,8 @@ export default async function HomePage() {
                 <div className="mt-16">
                   <SectionTitle
                     eyebrow="Программа тура"
-                    title="Модули, выстроенные |по принципу домино|"
-                    subtitle="Каждый шаг — фундамент для следующего. Без воды и абстракций."
+                    title="9 |модулей|"
+                    subtitle="3 дня офлайн в Дубае и месяц онлайн-сопровождения."
                     align="center"
                   />
                   <div className="mt-12">
@@ -155,8 +155,8 @@ export default async function HomePage() {
           <section className="section" id="tariffs">
             <div className="container-page">
               <SectionTitle
-                eyebrow="Тарифы бизнес-тура"
-                title="Выберите |уровень погружения|"
+                eyebrow="Тарифы"
+                title="Форматы |участия|"
                 align="center"
               />
               <div className="mt-14">
@@ -171,7 +171,7 @@ export default async function HomePage() {
             <div className="container-page">
               <SectionTitle
                 eyebrow="Отзывы"
-                title="Слова |тех, кто уже прошёл|"
+                title="От |участников|"
                 align="center"
               />
               <div className="mt-14">
@@ -201,9 +201,9 @@ export default async function HomePage() {
             <div className="grid items-start gap-8 sm:gap-10 lg:grid-cols-2">
               <div>
                 <SectionTitle
-                  eyebrow="Свяжитесь со мной"
-                  title="Один разговор — |и многое становится ясно|"
-                  subtitle="Расскажите коротко о ситуации. Я лично или моя команда вернёмся в течение пары часов."
+                  eyebrow="Контакты"
+                  title="Напишите |напрямую|"
+                  subtitle="Коротко опишите ситуацию. Свяжемся в течение дня."
                 />
                 <div className="mt-6 space-y-3 text-sm text-white/70 sm:mt-8 sm:text-base">
                   {settings.contact_email && (

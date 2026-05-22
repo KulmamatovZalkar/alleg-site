@@ -99,8 +99,14 @@ export default function HeroBackground({ settings, slides }: Props) {
   }
 
   if (resolved.kind === "poster") {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img src={resolved.image} alt="" className="h-full w-full object-cover" />;
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={resolved.image}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+    );
   }
 
   return null;

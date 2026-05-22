@@ -35,10 +35,10 @@ export default function BusinessTourBlock({
       <div className="pointer-events-none absolute -bottom-32 -left-32 h-72 w-72 rounded-full bg-wine-500/20 blur-[100px] sm:h-96 sm:w-96" />
 
       <motion.div {...fade} className="relative">
-        <div className="eyebrow mb-3 sm:mb-4">Закрытый бизнес-тур</div>
+        <div className="eyebrow mb-3 sm:mb-4">Бизнес-тур в Дубае</div>
         <h3 className="font-serif text-2xl text-white sm:text-4xl lg:text-5xl">
-          3 дня, которые перепрошьют{" "}
-          <span className="gold-text">ваш бизнес</span>
+          3 дня офлайн в Дубае,{" "}
+          <span className="gold-text">месяц онлайн</span>
         </h3>
 
         <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/70 sm:mt-6 sm:gap-x-8 sm:gap-y-3 sm:text-base">

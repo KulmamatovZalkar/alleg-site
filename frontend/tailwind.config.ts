@@ -31,8 +31,10 @@ const config: Config = {
         },
       },
       fontFamily: {
-        serif: ["var(--font-serif)", "Georgia", "serif"],
-        sans: ["var(--font-sans)", "Inter", "system-ui", "sans-serif"],
+        // Один шрифт на весь сайт. `font-serif` оставлен как алиас на тот же
+        // Montserrat — чтобы не переписывать все компоненты.
+        sans: ["var(--font-sans)", "Montserrat", "system-ui", "sans-serif"],
+        serif: ["var(--font-sans)", "Montserrat", "system-ui", "sans-serif"],
       },
       backgroundImage: {
         "gold-gradient":

@@ -1,40 +1,70 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, Instagram, MapPin } from "lucide-react";
+import { ImagePlus, Instagram, MapPin } from "lucide-react";
+import { useState } from "react";
 
 import { getMediaUrl } from "@/lib/api";
 import { useFadeIn } from "@/lib/useFadeIn";
 import type { HoldingProjectDTO } from "@/types/api";
 
+import ProjectGalleryModal from "./ProjectGalleryModal";
+
 export default function Projects({ items }: { items: HoldingProjectDTO[] }) {
+  const [active, setActive] = useState<HoldingProjectDTO | null>(null);
+
   if (!items.length) return null;
 
+  const isOdd = items.length % 2 !== 0;
+
   return (
-    <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-      {items.map((p, i) => (
-        <ProjectCard key={p.id} item={p} delay={i * 0.07} />
-      ))}
-    </div>
+    <>
+      <div className="mx-auto grid max-w-5xl gap-5 sm:gap-6 md:grid-cols-2">
+        {items.map((p, i) => {
+          const isLastOrphan = isOdd && i === items.length - 1;
+          return (
+            <ProjectCard
+              key={p.id}
+              item={p}
+              delay={i * 0.07}
+              fullWidth={isLastOrphan}
+              onOpen={() => setActive(p)}
+            />
+          );
+        })}
+      </div>
+
+      <ProjectGalleryModal project={active} onClose={() => setActive(null)} />
+    </>
   );
 }
 
 function ProjectCard({
   item: p,
   delay,
+  onOpen,
+  fullWidth = false,
 }: {
   item: HoldingProjectDTO;
   delay: number;
+  onOpen: () => void;
+  fullWidth?: boolean;
 }) {
   const cover = getMediaUrl(p.cover);
   const logo = getMediaUrl(p.logo);
   const fade = useFadeIn(delay);
+  const galleryCount = (p.gallery?.length ?? 0) + (cover ? 1 : 0);
+
   return (
-    <motion.article
+    <motion.button
       {...fade}
-      className="card-surface group relative flex h-full flex-col overflow-hidden"
+      type="button"
+      onClick={onOpen}
+      className={`card-surface group relative flex h-full flex-col overflow-hidden text-left transition hover:border-gold-300/40 ${
+        fullWidth ? "md:col-span-2" : ""
+      }`}
     >
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-ink-800">
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-ink-800">
         {cover ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -44,12 +74,13 @@ function ProjectCard({
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-ink-800 to-ink-900">
-            <span className="font-serif text-5xl gold-text opacity-80">
+            <span className="font-serif text-6xl gold-text opacity-80">
               {p.name.charAt(0)}
             </span>
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/10 to-transparent" />
+
         {logo && (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -57,6 +88,14 @@ function ProjectCard({
             alt=""
             className="absolute right-4 top-4 h-10 w-auto opacity-90"
           />
+        )}
+
+        {/* Подсказка: галерея */}
+        {galleryCount > 1 && (
+          <div className="absolute right-4 bottom-4 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-ink-950/80 px-2.5 py-1 text-[10px] uppercase tracking-wider text-white/80 backdrop-blur sm:text-xs">
+            <ImagePlus size={12} />
+            {galleryCount} фото
+          </div>
         )}
       </div>
 
@@ -90,30 +129,17 @@ function ProjectCard({
             </span>
           )}
           {p.instagram_url && (
-            <a
-              href={p.instagram_url}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-1.5 transition hover:text-gold-200"
-            >
+            <span className="flex items-center gap-1.5">
               <Instagram size={13} />
               Instagram
-            </a>
+            </span>
           )}
         </div>
 
-        {p.site_url && (
-          <a
-            href={p.site_url}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-6 inline-flex w-fit items-center gap-2 text-sm font-semibold uppercase tracking-wider text-gold-200 transition hover:text-gold-100"
-          >
-            Сайт проекта
-            <ArrowUpRight size={14} />
-          </a>
-        )}
+        <span className="mt-5 inline-flex w-fit items-center gap-2 text-sm font-semibold uppercase tracking-wider text-gold-200">
+          Открыть галерею →
+        </span>
       </div>
-    </motion.article>
+    </motion.button>
   );
 }

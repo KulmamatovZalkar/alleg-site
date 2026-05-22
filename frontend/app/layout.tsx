@@ -1,29 +1,26 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 
 import SmoothScroll from "@/components/layout/SmoothScroll";
 
-const sans = Inter({
+// Один шрифт на весь сайт — Montserrat.
+// Заголовки используют тот же шрифт в light (300) с увеличенным letter-spacing.
+const sans = Montserrat({
   subsets: ["latin", "cyrillic"],
   variable: "--font-sans",
   display: "swap",
-});
-
-const serif = Playfair_Display({
-  subsets: ["latin", "cyrillic"],
-  variable: "--font-serif",
-  display: "swap",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
   title: "Аллег Ким — Международный консалтинг и бизнес-тур в Дубае",
   description:
-    "Трансформация мышления и системный масштаб бизнеса. 25 лет в HORECA, 1000+ консультаций, клиенты в 5+ странах.",
+    "Системный масштаб бизнеса. Бизнес-тур в Дубае от основателя холдинга «Ассорти Проджект».",
   openGraph: {
     title: "Аллег Ким — Международный консалтинг",
     description:
-      "Трансформация мышления и системный масштаб бизнеса. Бизнес-тур в Дубае.",
+      "Системный масштаб бизнеса. Бизнес-тур в Дубае.",
     type: "website",
   },
 };
@@ -34,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ru" className={`${sans.variable} ${serif.variable}`}>
+    <html lang="ru" className={sans.variable}>
       <body className="min-h-screen antialiased">
         <SmoothScroll />
         {children}

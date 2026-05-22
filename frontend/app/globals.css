@@ -41,8 +41,14 @@ body {
 
 @layer base {
   h1, h2, h3, h4 {
-    font-family: var(--font-serif), Georgia, serif;
-    letter-spacing: -0.01em;
+    font-weight: 300;
+    letter-spacing: -0.015em;
+  }
+  /* Класс font-serif остался в коде секций как смысловой "это заголовок". */
+  .font-serif {
+    font-family: var(--font-sans), Montserrat, system-ui, sans-serif;
+    font-weight: 300;
+    letter-spacing: -0.015em;
   }
   ::selection {
     background: #E8C97A;
