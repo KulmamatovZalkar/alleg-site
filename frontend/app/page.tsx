@@ -77,6 +77,12 @@ export default async function HomePage() {
           </section>
         )}
 
+        <section className="section" id="about">
+          <div className="container-page">
+            <About settings={settings} />
+          </div>
+        </section>
+
         {services.length > 0 && (
           <section className="section" id="services">
             <div className="container-page">
@@ -91,12 +97,6 @@ export default async function HomePage() {
             </div>
           </section>
         )}
-
-        <section className="section" id="about">
-          <div className="container-page">
-            <About settings={settings} />
-          </div>
-        </section>
 
         {projects.length > 0 && (
           <section className="section" id="projects">
