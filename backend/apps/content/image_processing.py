@@ -10,30 +10,31 @@ from django.core.files.base import ContentFile
 from django.db.models.fields.files import ImageFieldFile
 from PIL import Image, ImageOps
 
-# Целевое качество WebP (80 — почти неотличимо от оригинала, в 5-10× легче)
-WEBP_QUALITY = 82
+# Целевое качество WebP. 78 — золотая середина между весом и качеством.
+WEBP_QUALITY = 78
 
 # Максимальная длинная сторона по умолчанию (px).
-DEFAULT_MAX_DIMENSION = 1920
+DEFAULT_MAX_DIMENSION = 1400
 
-# Тонкая настройка по полям: какое максимальное измерение использовать.
-# Если поля нет в этом словаре — берётся DEFAULT_MAX_DIMENSION.
+# Размеры подобраны под фактический viewport на сайте + 2x для retina.
+# Слишком большие фото = долгая загрузка и плохой LCP.
 FIELD_MAX_DIMENSION = {
-    # Hero / OG-картинка — большие
-    "hero_poster": 1920,
+    # Hero — десктоп ~1920px широкий, но фон, не критично — режем до 1600
+    "hero_poster": 1600,
+    # OG-картинка для шеринга
     "og_image": 1200,
-    # Фото "Обо мне" — портрет, среднего размера
-    "about_photo": 1200,
-    # Bento-плитки — небольшие
-    "achievement_image": 1000,
-    # Карточки направлений
-    "service_image": 1200,
-    # Кейсы — обложка
-    "case_image": 1400,
-    # Отзывы — аватарка, маленькая
-    "testimonial_photo": 500,
-    # Блог
-    "blogpost_cover": 1600,
+    # Фото "Обо мне" — отображается ~600px → 1200 (2x retina)
+    "about_photo": 1100,
+    # Bento-плитки — отображаются ~320×320 → 640 (2x)
+    "achievement_image": 700,
+    # Карточки направлений — ~400 → 800
+    "service_image": 900,
+    # Кейсы — карточка ~660×440 → 1320 (2x)
+    "case_image": 1200,
+    # Отзывы — аватарка ~48px → 200 (2x с запасом)
+    "testimonial_photo": 400,
+    # Блог-обложка
+    "blogpost_cover": 1400,
 }
 
 # Расширения, которые НЕ конвертируем (svg, gif с анимацией, и т.д.)

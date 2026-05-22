@@ -19,6 +19,7 @@ from .models import (
 # (Модель, имя_поля, ключ_для_лимита_размера)
 IMAGE_FIELDS = [
     (SiteSettings, "hero_poster", "hero_poster"),
+    (SiteSettings, "hero_mobile_image", "hero_poster"),
     (HeroSlide, "image", "hero_poster"),
     (SiteSettings, "about_photo", "about_photo"),
     (SiteSettings, "about_photo_2", "about_photo"),

@@ -27,7 +27,7 @@ function BentoTile({ item: a, delay }: { item: AchievementDTO; delay: number }) 
   return (
     <motion.div
       {...fade}
-      className={`card-surface group relative flex aspect-[5/4] flex-col justify-between overflow-hidden p-5 sm:aspect-[16/11] sm:p-7 ${
+      className={`card-surface group relative flex flex-col gap-3 overflow-hidden p-5 sm:aspect-[16/11] sm:justify-between sm:gap-0 sm:p-7 ${
         a.accent ? "border-gold-400/40 shadow-gold-glow" : ""
       }`}
       style={
@@ -49,26 +49,26 @@ function BentoTile({ item: a, delay }: { item: AchievementDTO; delay: number }) 
 
       {a.icon && (
         <div
-          className={`flex h-10 w-10 items-center justify-center rounded-2xl border sm:h-11 sm:w-11 ${
+          className={`flex h-9 w-9 items-center justify-center rounded-xl border sm:h-11 sm:w-11 sm:rounded-2xl ${
             a.accent
               ? "border-gold-300/40 bg-gold-300/[0.12] text-gold-100"
               : "border-white/10 bg-white/[0.04] text-gold-200/90"
           }`}
         >
-          <Icon name={a.icon} size={20} />
+          <Icon name={a.icon} size={18} />
         </div>
       )}
 
-      <div className="mt-auto">
+      <div className="min-w-0 sm:mt-auto">
         <div
           className={`font-serif leading-none tracking-tight ${
             a.accent ? "gold-text" : "text-white"
-          } text-4xl sm:text-5xl lg:text-6xl`}
+          } break-words text-[1.5rem] sm:text-5xl lg:text-6xl`}
         >
           {a.title}
         </div>
         {a.subtitle && (
-          <div className="mt-2 max-w-[28ch] text-[11px] uppercase leading-snug tracking-wider text-white/55 sm:mt-3 sm:text-xs">
+          <div className="mt-2 max-w-[28ch] text-[10px] uppercase leading-snug tracking-wider text-white/55 sm:mt-3 sm:text-xs">
             {a.subtitle}
           </div>
         )}

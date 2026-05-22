@@ -32,6 +32,7 @@ export interface SiteSettingsDTO {
   hero_video_url: string;
   hero_video_url_info: VideoInfo | null;
   hero_poster: ApiImage;
+  hero_mobile_image: ApiImage;
   hero_slide_interval: number;
   hero_primary_cta: string;
   hero_secondary_cta: string;

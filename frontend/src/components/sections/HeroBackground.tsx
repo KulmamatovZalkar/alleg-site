@@ -105,6 +105,9 @@ export default function HeroBackground({ settings, slides }: Props) {
         src={resolved.image}
         alt=""
         className="absolute inset-0 h-full w-full object-cover"
+        fetchPriority="high"
+        loading="eager"
+        decoding="async"
       />
     );
   }

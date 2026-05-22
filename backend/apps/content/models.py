@@ -90,8 +90,17 @@ class SiteSettings(SingletonModel):
         help_text="Если задано — будет проигрываться как live-фон Hero",
     )
     hero_poster = models.ImageField(
-        "Статичный постер (fallback)", upload_to="hero/", blank=True, null=True,
-        help_text="Используется если нет видео и слайдов",
+        "Статичный постер для десктопа (fallback)",
+        upload_to="hero/", blank=True, null=True,
+        help_text="Используется на десктопе если нет видео и слайдов",
+    )
+    hero_mobile_image = models.ImageField(
+        "Фото Hero для мобильной версии (портретное 4:5)",
+        upload_to="hero/mobile/", blank=True, null=True,
+        help_text=(
+            "Отдельное фото для мобильного экрана. "
+            "Если не загружено — используется обычный постер."
+        ),
     )
     hero_slide_interval = models.PositiveSmallIntegerField(
         "Интервал смены слайдов, сек", default=5,

@@ -11,7 +11,13 @@ html {
   scroll-behavior: smooth;
 }
 
-html,
+/* html-фон = цвет overscroll (резинка на iOS/Mac) и адресной строки.
+   Тёплый тёмный, согласован с золотыми градиентами body. */
+html {
+  background: #14100C;
+  color: #F4E2B0;
+  overflow-x: hidden;
+}
 body {
   background: #0A0A0A;
   color: #F4E2B0;
@@ -140,6 +146,22 @@ body {
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, #7A5618, #C99A3D);
   border-radius: 999px;
+}
+
+@keyframes ping-slow {
+  0% { transform: scale(1); opacity: 0.55; }
+  80%, 100% { transform: scale(1.7); opacity: 0; }
+}
+.animate-ping-slow {
+  animation: ping-slow 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.65; }
+}
+.animate-pulse-soft {
+  animation: pulse-soft 2.6s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

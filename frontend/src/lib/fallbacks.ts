@@ -27,6 +27,7 @@ export const fallbackHome = {
     hero_video_url: "",
     hero_video_url_info: null,
     hero_poster: null,
+    hero_mobile_image: null,
     hero_slide_interval: 5,
     hero_primary_cta: "Записаться на разбор",
     hero_secondary_cta: "Узнать о Бизнес-туре",
