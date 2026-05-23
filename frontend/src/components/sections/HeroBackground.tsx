@@ -1,8 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
-import { getMediaUrl } from "@/lib/api";
+import { getOptimizableMediaUrl } from "@/lib/api";
 import type { HeroSlideDTO, SiteSettingsDTO } from "@/types/api";
 
 interface Props {
@@ -20,9 +21,9 @@ function resolve(settings: SiteSettingsDTO, slides: HeroSlideDTO[]): Resolved {
   const mode = settings.hero_mode || "auto";
   const videoInfo = settings.hero_video_url_info;
   const slideImages = slides
-    .map((s) => getMediaUrl(s.image))
+    .map((s) => getOptimizableMediaUrl(s.image))
     .filter((x): x is string => !!x);
-  const poster = getMediaUrl(settings.hero_poster);
+  const poster = getOptimizableMediaUrl(settings.hero_poster);
 
   const wantVideo =
     (mode === "auto" || mode === "video") && videoInfo;
@@ -84,11 +85,15 @@ export default function HeroBackground({ settings, slides }: Props) {
     return (
       <>
         {resolved.images.map((src, i) => (
-          <img
+          <Image
             key={src}
             src={src}
             alt=""
-            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1500ms] ease-in-out ${
+            fill
+            priority={i === 0}
+            quality={88}
+            sizes="100vw"
+            className={`object-cover transition-opacity duration-[1500ms] ease-in-out ${
               i === index ? "opacity-100" : "opacity-0"
             }`}
             aria-hidden={i !== index}
@@ -100,14 +105,14 @@ export default function HeroBackground({ settings, slides }: Props) {
 
   if (resolved.kind === "poster") {
     return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
+      <Image
         src={resolved.image}
         alt=""
-        className="absolute inset-0 h-full w-full object-cover"
-        fetchPriority="high"
-        loading="eager"
-        decoding="async"
+        fill
+        priority
+        quality={88}
+        sizes="100vw"
+        className="object-cover"
       />
     );
   }

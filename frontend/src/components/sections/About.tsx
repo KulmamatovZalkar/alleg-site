@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 import VideoEmbed from "@/components/ui/VideoEmbed";
-import { getMediaUrl } from "@/lib/api";
+import { getMediaUrl, getOptimizableMediaUrl } from "@/lib/api";
 import { useFadeIn } from "@/lib/useFadeIn";
 import type { SiteSettingsDTO } from "@/types/api";
 
@@ -24,8 +25,9 @@ export default function About({ settings }: { settings: SiteSettingsDTO }) {
 
 function AboutMobile({ settings }: { settings: SiteSettingsDTO }) {
   const photo = getMediaUrl(settings.about_photo);
-  const photo2 = getMediaUrl(settings.about_photo_2);
-  const photo3 = getMediaUrl(settings.about_photo_3);
+  const photoOpt = getOptimizableMediaUrl(settings.about_photo);
+  const photo2 = getOptimizableMediaUrl(settings.about_photo_2);
+  const photo3 = getOptimizableMediaUrl(settings.about_photo_3);
   const videoInfo = settings.about_video_url_info;
 
   const thumbs = [photo2, photo3].filter((x): x is string => !!x);
@@ -55,12 +57,14 @@ function AboutMobile({ settings }: { settings: SiteSettingsDTO }) {
           />
         ) : (
           <div className="relative aspect-[5/6] w-full overflow-hidden rounded-3xl border border-white/10">
-            {photo ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={photo}
+            {photoOpt ? (
+              <Image
+                src={photoOpt}
                 alt={settings.about_title}
-                className="absolute inset-0 h-full w-full object-cover"
+                fill
+                quality={88}
+                sizes="(max-width: 1024px) 100vw, 480px"
+                className="object-cover"
               />
             ) : (
               <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-ink-800 to-ink-900">
@@ -78,12 +82,14 @@ function AboutMobile({ settings }: { settings: SiteSettingsDTO }) {
                 key={i}
                 className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-white/10"
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={src}
                   alt=""
-                  className="absolute inset-0 h-full w-full object-cover"
+                  fill
                   loading="lazy"
+                  quality={85}
+                  sizes="(max-width: 640px) 45vw, (max-width: 1024px) 240px, 240px"
+                  className="object-cover"
                 />
               </div>
             ))}
@@ -106,8 +112,9 @@ function AboutMobile({ settings }: { settings: SiteSettingsDTO }) {
 
 function AboutDesktop({ settings }: { settings: SiteSettingsDTO }) {
   const photo = getMediaUrl(settings.about_photo);
-  const photo2 = getMediaUrl(settings.about_photo_2);
-  const photo3 = getMediaUrl(settings.about_photo_3);
+  const photoOpt = getOptimizableMediaUrl(settings.about_photo);
+  const photo2 = getOptimizableMediaUrl(settings.about_photo_2);
+  const photo3 = getOptimizableMediaUrl(settings.about_photo_3);
   const videoInfo = settings.about_video_url_info;
 
   const fadeText = useFadeIn();
@@ -139,12 +146,14 @@ function AboutDesktop({ settings }: { settings: SiteSettingsDTO }) {
         ) : hasGallery ? (
           <div className="grid h-full grid-cols-2 gap-4">
             <div className="relative overflow-hidden rounded-3xl border border-white/10 min-h-[34rem]">
-              {photo ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={photo}
+              {photoOpt ? (
+                <Image
+                  src={photoOpt}
                   alt={settings.about_title}
-                  className="absolute inset-0 h-full w-full object-cover"
+                  fill
+                  quality={88}
+                  sizes="(max-width: 1024px) 50vw, 30vw"
+                  className="object-cover"
                 />
               ) : (
                 <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-ink-800 to-ink-900">
@@ -155,21 +164,25 @@ function AboutDesktop({ settings }: { settings: SiteSettingsDTO }) {
             <div className="grid grid-rows-2 gap-4">
               {photo2 && (
                 <div className="relative overflow-hidden rounded-3xl border border-white/10">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={photo2}
                     alt=""
-                    className="absolute inset-0 h-full w-full object-cover"
+                    fill
+                    quality={85}
+                    sizes="(max-width: 1024px) 25vw, 15vw"
+                    className="object-cover"
                   />
                 </div>
               )}
               {photo3 && (
                 <div className="relative overflow-hidden rounded-3xl border border-white/10">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={photo3}
                     alt=""
-                    className="absolute inset-0 h-full w-full object-cover"
+                    fill
+                    quality={85}
+                    sizes="(max-width: 1024px) 25vw, 15vw"
+                    className="object-cover"
                   />
                 </div>
               )}
@@ -182,12 +195,14 @@ function AboutDesktop({ settings }: { settings: SiteSettingsDTO }) {
           </div>
         ) : (
           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl border border-white/10">
-            {photo ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={photo}
+            {photoOpt ? (
+              <Image
+                src={photoOpt}
                 alt={settings.about_title}
-                className="absolute inset-0 h-full w-full object-cover"
+                fill
+                quality={88}
+                sizes="(max-width: 1024px) 50vw, 30vw"
+                className="object-cover"
               />
             ) : (
               <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-ink-800 to-ink-900">

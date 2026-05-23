@@ -2,9 +2,10 @@
 
 import { motion } from "framer-motion";
 import { ImagePlus, Instagram, MapPin } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 
-import { getMediaUrl } from "@/lib/api";
+import { getOptimizableMediaUrl } from "@/lib/api";
 import { useFadeIn } from "@/lib/useFadeIn";
 import type { HoldingProjectDTO } from "@/types/api";
 
@@ -50,8 +51,8 @@ function ProjectCard({
   onOpen: () => void;
   fullWidth?: boolean;
 }) {
-  const cover = getMediaUrl(p.cover);
-  const logo = getMediaUrl(p.logo);
+  const cover = getOptimizableMediaUrl(p.cover);
+  const logo = getOptimizableMediaUrl(p.logo);
   const fade = useFadeIn(delay);
   const galleryCount = (p.gallery?.length ?? 0) + (cover ? 1 : 0);
 
@@ -66,11 +67,14 @@ function ProjectCard({
     >
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-ink-800">
         {cover ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={cover}
             alt={p.name}
-            className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+            fill
+            loading="lazy"
+            quality={88}
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 480px"
+            className="object-cover transition duration-500 group-hover:scale-[1.04]"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-ink-800 to-ink-900">
@@ -82,10 +86,12 @@ function ProjectCard({
         <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/10 to-transparent" />
 
         {logo && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={logo}
             alt=""
+            width={80}
+            height={40}
+            sizes="80px"
             className="absolute right-4 top-4 h-10 w-auto opacity-90"
           />
         )}

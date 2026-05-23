@@ -14,6 +14,7 @@ interface Props {
 
 export default function ProjectGalleryModal({ project, onClose }: Props) {
   const [index, setIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   // Собираем все доступные фото: cover + gallery (если есть)
   const images: string[] = project
@@ -26,7 +27,13 @@ export default function ProjectGalleryModal({ project, onClose }: Props) {
   // Сбрасываем индекс при смене проекта
   useEffect(() => {
     setIndex(0);
+    setLoading(true);
   }, [project?.id]);
+
+  // При смене картинки — снова показываем спиннер до её загрузки
+  useEffect(() => {
+    setLoading(true);
+  }, [index]);
 
   // ESC закрывает, стрелки переключают
   useEffect(() => {
@@ -100,8 +107,17 @@ export default function ProjectGalleryModal({ project, onClose }: Props) {
                     key={images[index]}
                     src={images[index]}
                     alt={project.name}
-                    className="h-full w-full object-cover"
+                    onLoad={() => setLoading(false)}
+                    onError={() => setLoading(false)}
+                    className={`h-full w-full object-cover transition-opacity duration-300 ${
+                      loading ? "opacity-0" : "opacity-100"
+                    }`}
                   />
+                  {loading && (
+                    <div className="absolute inset-0 z-10 flex items-center justify-center bg-ink-900">
+                      <span className="h-10 w-10 animate-spin rounded-full border-2 border-gold-300/25 border-t-gold-300" />
+                    </div>
+                  )}
                   {images.length > 1 && (
                     <>
                       <button

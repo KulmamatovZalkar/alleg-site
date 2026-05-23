@@ -2,9 +2,10 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 import HeroBackground from "@/components/sections/HeroBackground";
-import { getMediaUrl } from "@/lib/api";
+import { getMediaUrl, getOptimizableMediaUrl } from "@/lib/api";
 import type { HeroSlideDTO, SiteSettingsDTO } from "@/types/api";
 
 interface Props {
@@ -44,9 +45,9 @@ function HeroMobile({ settings, slides }: Props) {
   // 1) hero_mobile_image (отдельное мобильное фото из админки)
   // 2) hero_poster (общий постер)
   // 3) первый слайд из карусели
-  const mobileSpecific = getMediaUrl(settings.hero_mobile_image);
-  const poster = getMediaUrl(settings.hero_poster);
-  const slideImg = slides[0] ? getMediaUrl(slides[0].image) : null;
+  const mobileSpecific = getOptimizableMediaUrl(settings.hero_mobile_image);
+  const poster = getOptimizableMediaUrl(settings.hero_poster);
+  const slideImg = slides[0] ? getOptimizableMediaUrl(slides[0].image) : null;
   const mobileImage = mobileSpecific || poster || slideImg;
 
   return (
@@ -57,14 +58,14 @@ function HeroMobile({ settings, slides }: Props) {
         className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl border border-white/10"
       >
         {mobileImage ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={mobileImage}
             alt={settings.hero_title}
-            className="absolute inset-0 h-full w-full object-cover"
-            fetchPriority="high"
-            loading="eager"
-            decoding="async"
+            fill
+            priority
+            quality={88}
+            sizes="(max-width: 640px) 92vw, (max-width: 1024px) 600px, 600px"
+            className="object-cover"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-ink-800 to-ink-900">

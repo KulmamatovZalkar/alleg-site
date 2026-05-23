@@ -71,7 +71,7 @@ class Command(BaseCommand):
             "25 лет в HORECA. 8 ресторанов в двух брендах — Koreana и Alchik. "
             "Работаю с собственниками малого и среднего бизнеса."
         )
-        s.hero_primary_cta = "Записаться на разговор"
+        s.hero_primary_cta = "Записаться на консультацию"
         s.hero_secondary_cta = "Программа бизнес-тура"
 
         s.about_title = "Аллег Ким"

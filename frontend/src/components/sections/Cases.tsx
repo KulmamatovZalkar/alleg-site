@@ -2,8 +2,9 @@
 
 import { motion } from "framer-motion";
 import { Play, Quote, TrendingUp } from "lucide-react";
+import Image from "next/image";
 
-import { getMediaUrl } from "@/lib/api";
+import { getOptimizableMediaUrl } from "@/lib/api";
 import { useFadeIn } from "@/lib/useFadeIn";
 import type { CaseDTO } from "@/types/api";
 
@@ -18,7 +19,7 @@ export default function Cases({ items }: { items: CaseDTO[] }) {
 }
 
 function CaseCard({ item: c, delay }: { item: CaseDTO; delay: number }) {
-  const img = getMediaUrl(c.image);
+  const img = getOptimizableMediaUrl(c.image);
   const fade = useFadeIn(delay);
   return (
     <motion.article
@@ -27,11 +28,14 @@ function CaseCard({ item: c, delay }: { item: CaseDTO; delay: number }) {
     >
       {img && (
         <div className="relative -mx-6 -mt-6 mb-5 h-36 overflow-hidden rounded-t-3xl sm:-mx-7 sm:-mt-7 sm:mb-6 sm:h-40">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={img}
             alt={c.client_name}
-            className="h-full w-full object-cover"
+            fill
+            loading="lazy"
+            quality={85}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover"
           />
           {c.video_url_info && (
             <a

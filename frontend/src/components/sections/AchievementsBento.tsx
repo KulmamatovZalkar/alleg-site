@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 import Icon from "@/components/ui/Icon";
-import { getMediaUrl } from "@/lib/api";
+import { getOptimizableMediaUrl } from "@/lib/api";
 import { useFadeIn } from "@/lib/useFadeIn";
 import type { AchievementDTO } from "@/types/api";
 
@@ -22,7 +23,7 @@ export default function AchievementsBento({
 }
 
 function BentoTile({ item: a, delay }: { item: AchievementDTO; delay: number }) {
-  const img = getMediaUrl(a.image);
+  const img = getOptimizableMediaUrl(a.image);
   const fade = useFadeIn(delay);
   return (
     <motion.div
@@ -41,8 +42,14 @@ function BentoTile({ item: a, delay }: { item: AchievementDTO; delay: number }) 
     >
       {img && (
         <div className="absolute inset-0 -z-10 opacity-25 transition group-hover:opacity-35">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={img} alt="" className="h-full w-full object-cover" loading="lazy" />
+          <Image
+            src={img}
+            alt=""
+            fill
+            loading="lazy"
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 220px"
+            className="object-cover"
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/60 to-transparent" />
         </div>
       )}

@@ -10,8 +10,10 @@ from django.core.files.base import ContentFile
 from django.db.models.fields.files import ImageFieldFile
 from PIL import Image, ImageOps
 
-# Целевое качество WebP. 78 — золотая середина между весом и качеством.
-WEBP_QUALITY = 78
+# Целевое качество WebP. 88 — высокое качество без заметных артефактов.
+# next/image на клиенте дополнительно ужмёт до q=75 при оптимизации,
+# поэтому исходник должен быть с запасом качества.
+WEBP_QUALITY = 88
 
 # Максимальная длинная сторона по умолчанию (px).
 DEFAULT_MAX_DIMENSION = 1400
@@ -19,22 +21,21 @@ DEFAULT_MAX_DIMENSION = 1400
 # Размеры подобраны под фактический viewport на сайте + 2x для retina.
 # Слишком большие фото = долгая загрузка и плохой LCP.
 FIELD_MAX_DIMENSION = {
-    # Hero — десктоп ~1920px широкий, но фон, не критично — режем до 1600
-    "hero_poster": 1600,
-    # OG-картинка для шеринга
+    # Hero — десктоп full-bleed до ~1920, на ретине → 2400 максимум.
+    "hero_poster": 2000,
     "og_image": 1200,
-    # Фото "Обо мне" — отображается ~600px → 1200 (2x retina)
-    "about_photo": 1100,
-    # Bento-плитки — отображаются ~320×320 → 640 (2x)
-    "achievement_image": 700,
-    # Карточки направлений — ~400 → 800
+    # "Обо мне" — крупная плитка на десктопе ~600–700px → 1400 для retina.
+    "about_photo": 1400,
+    # Bento — 360px на desktop → 720 retina.
+    "achievement_image": 720,
+    # Направления — ~420px → 900 retina.
     "service_image": 900,
-    # Кейсы — карточка ~660×440 → 1320 (2x)
-    "case_image": 1200,
-    # Отзывы — аватарка ~48px → 200 (2x с запасом)
-    "testimonial_photo": 400,
+    # Кейсы — карточка до 660px на desktop → 1300 retina.
+    "case_image": 1300,
+    # Аватарка отзыва ~48px → 200 (с запасом)
+    "testimonial_photo": 200,
     # Блог-обложка
-    "blogpost_cover": 1400,
+    "blogpost_cover": 1600,
 }
 
 # Расширения, которые НЕ конвертируем (svg, gif с анимацией, и т.д.)
@@ -63,11 +64,6 @@ def process_image_file(file_field: ImageFieldFile, field_key: str) -> bool:
     if _should_skip(original_name):
         return False
 
-    if _is_already_webp(original_name):
-        # Если уже webp — может, всё равно стоит ресайз сделать?
-        # Делаем: открываем, ресайзим если больше лимита, пересохраняем.
-        pass
-
     max_dim = FIELD_MAX_DIMENSION.get(field_key, DEFAULT_MAX_DIMENSION)
 
     try:
@@ -83,6 +79,15 @@ def process_image_file(file_field: ImageFieldFile, field_key: str) -> bool:
         except Exception:
             pass
 
+    w, h = img.size
+    longest = max(w, h)
+    needs_resize = longest > max_dim
+
+    # Если файл уже webp и в пределах лимита — не трогаем (каждое
+    # пересохранение webp = новая потеря качества).
+    if _is_already_webp(original_name) and not needs_resize:
+        return False
+
     # Конвертация цветовой модели
     if img.mode in ("RGBA", "LA"):
         # Сохраняем прозрачность для WebP
@@ -97,9 +102,7 @@ def process_image_file(file_field: ImageFieldFile, field_key: str) -> bool:
         img = img.convert("RGB")
 
     # Ресайз с сохранением пропорций
-    w, h = img.size
-    longest = max(w, h)
-    if longest > max_dim:
+    if needs_resize:
         ratio = max_dim / longest
         new_size = (int(w * ratio), int(h * ratio))
         img = img.resize(new_size, Image.LANCZOS)

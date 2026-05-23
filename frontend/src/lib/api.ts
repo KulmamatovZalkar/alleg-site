@@ -25,6 +25,25 @@ export function getMediaUrl(path: ApiImage): string | null {
   return path;
 }
 
+/**
+ * Абсолютный URL для оптимизатора next/image. Передаётся в <Image src=…>
+ * и попадает только внутрь параметра /_next/image?url=…, не в DOM как
+ * прямой src.
+ *
+ * Используем `NEXT_PUBLIC_SITE_URL` (https://alleg.kg) — он встраивается
+ * в бандл при билде, поэтому значение одинаковое на сервере и на клиенте
+ * (без hydration mismatch). Оптимизатор на сервере скачивает картинку
+ * по публичному URL — добавляет одну сетевую петлю, но результат
+ * кешируется на 30 дней (см. next.config.mjs).
+ */
+export function getOptimizableMediaUrl(path: ApiImage): string | null {
+  const url = getMediaUrl(path);
+  if (!url) return null;
+  if (!url.startsWith("/")) return url;
+  const base = process.env.NEXT_PUBLIC_SITE_URL;
+  return base ? `${base.replace(/\/$/, "")}${url}` : url;
+}
+
 export async function fetchHomePage(): Promise<HomePageData | null> {
   const base = getServerBaseUrl();
   try {

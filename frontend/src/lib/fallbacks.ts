@@ -29,7 +29,7 @@ export const fallbackHome = {
     hero_poster: null,
     hero_mobile_image: null,
     hero_slide_interval: 5,
-    hero_primary_cta: "Записаться на разбор",
+    hero_primary_cta: "Записаться на консультацию",
     hero_secondary_cta: "Узнать о Бизнес-туре",
     about_title: "Аллег Ким",
     about_subtitle: "Эксперт, который превращает бизнес в систему",

@@ -2,8 +2,9 @@
 
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
+import Image from "next/image";
 
-import { getMediaUrl } from "@/lib/api";
+import { getOptimizableMediaUrl } from "@/lib/api";
 import { useFadeIn } from "@/lib/useFadeIn";
 import type { TestimonialDTO } from "@/types/api";
 
@@ -24,7 +25,7 @@ function TestimonialCard({
   item: TestimonialDTO;
   delay: number;
 }) {
-  const photo = getMediaUrl(t.photo);
+  const photo = getOptimizableMediaUrl(t.photo);
   const fade = useFadeIn(delay);
   return (
     <motion.figure
@@ -42,8 +43,15 @@ function TestimonialCard({
       <figcaption className="mt-5 flex items-center gap-4 border-t border-white/[0.07] pt-4 sm:mt-6 sm:pt-5">
         <div className="h-11 w-11 overflow-hidden rounded-full border border-gold-300/30 bg-ink-800 sm:h-12 sm:w-12">
           {photo ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={photo} alt={t.name} className="h-full w-full object-cover" />
+            <Image
+              src={photo}
+              alt={t.name}
+              width={48}
+              height={48}
+              loading="lazy"
+              sizes="48px"
+              className="h-full w-full object-cover"
+            />
           ) : (
             <div className="flex h-full w-full items-center justify-center font-serif text-gold-200">
               {t.name.charAt(0)}

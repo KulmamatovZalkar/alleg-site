@@ -33,6 +33,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru" className={sans.variable}>
+      <head>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
       <body className="min-h-screen antialiased">
         <SmoothScroll />
         {children}
