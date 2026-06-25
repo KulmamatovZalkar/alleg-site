@@ -73,7 +73,7 @@ export default async function HomePage() {
             <div className="container-page">
               <SectionTitle
                 eyebrow="С чем приходят"
-                title="Типовые ситуации |собственников|"
+                title="Что я |решаю|"
                 align="center"
               />
               <div className="mt-12">

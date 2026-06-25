@@ -1,6 +1,6 @@
 "use client";
 
-import { Instagram, Youtube, Facebook, Linkedin } from "lucide-react";
+import { Instagram, Youtube, Facebook, Linkedin, GraduationCap } from "lucide-react";
 
 import type { SiteSettingsDTO } from "@/lib/api";
 
@@ -90,9 +90,15 @@ export default function Footer({ settings }: { settings: SiteSettingsDTO }) {
         )}
       </div>
 
-      <div className="container-page mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/[0.06] pt-6 text-xs text-white/40 sm:flex-row">
-        <span>© {new Date().getFullYear()} Alleg Kim. Все права защищены.</span>
-        <span>Сделано с фокусом на результат.</span>
+      <div className="container-page mt-12 flex flex-col items-center gap-4 border-t border-white/[0.06] pt-6">
+        <span className="inline-flex items-center gap-2 rounded-full border border-gold-300/25 bg-gold-300/[0.06] px-4 py-1.5 text-xs font-medium text-gold-200">
+          <GraduationCap size={14} />
+          Сертифицированный тренер STI Dubai
+        </span>
+        <div className="flex w-full flex-col items-center justify-between gap-3 text-xs text-white/40 sm:flex-row">
+          <span>© {new Date().getFullYear()} Alleg Kim. Все права защищены.</span>
+          <span>Сделано с фокусом на результат.</span>
+        </div>
       </div>
     </footer>
   );

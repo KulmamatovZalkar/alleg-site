@@ -19,10 +19,11 @@ export const fallbackHome = {
     facebook_url: "",
     linkedin_url: "",
     tiktok_url: "",
-    hero_title: "Трансформация мышления. Системный масштаб бизнеса.",
-    hero_subtitle: "Международный консалтинг от Аллега Кима",
+    hero_title: "Аллег Ким. Ресторатор и бизнес-тренер для ресторанного бизнеса.",
+    hero_subtitle:
+      "Действующий ресторатор и сертифицированный тренер STI Dubai. Основатель холдинга «Ассорти Проджект».",
     hero_description:
-      "Ресторатор с 25-летним опытом. Топ-тренер Сюцай Training Institute Dubai. Помогаю предпринимателям перейти на следующий уровень — через мышление, структуру и метрики.",
+      "25 лет в ресторанном бизнесе. 8 ресторанов в двух брендах — Koreana и Alchik. Учу собственников строить ресторанный бизнес как систему, а не на интуиции.",
     hero_mode: "auto",
     hero_video_url: "",
     hero_video_url_info: null,
@@ -32,9 +33,9 @@ export const fallbackHome = {
     hero_primary_cta: "Записаться на консультацию",
     hero_secondary_cta: "Узнать о Бизнес-туре",
     about_title: "Аллег Ким",
-    about_subtitle: "Эксперт, который превращает бизнес в систему",
+    about_subtitle: "Ресторатор. Бизнес-тренер ресторанного бизнеса.",
     about_text:
-      "<p>25 лет в HORECA, 1000+ консультаций, клиенты из Европы, СНГ, Кореи, Америки, Дубая и Африки. Основатель холдинга «Ассорти Проджект».</p>",
+      "<p>25 лет в ресторанном бизнесе. Основатель холдинга «Ассорти Проджект» — 8 ресторанов в брендах Koreana и Alchik. Сертифицированный тренер STI Dubai.</p>",
     about_photo: null,
     about_photo_2: null,
     about_photo_3: null,
@@ -42,9 +43,9 @@ export const fallbackHome = {
     about_video_url_info: null,
     projects_title: "Холдинг |Ассорти Проджект|",
     projects_subtitle: "",
-    seo_title: "Аллег Ким — Международный консалтинг и бизнес-тур в Дубае",
+    seo_title: "Аллег Ким — Ресторатор и бизнес-тренер. Консалтинг и бизнес-тур в Дубае",
     seo_description:
-      "Трансформация мышления и масштабирование бизнеса. Консалтинг от Аллега Кима, ресторатора с 25-летним опытом.",
+      "Развитие ресторанного бизнеса: системный подход и масштабирование. Действующий ресторатор, основатель холдинга «Ассорти Проджект» (Koreana, Alchik). Сертифицированный тренер STI Dubai.",
     og_image: null,
   },
   offer: {
@@ -60,7 +61,7 @@ export const fallbackHome = {
   achievements: [
     { id: 1, title: "25", subtitle: "лет в бизнесе", icon: "trophy", image: null, size: "large", accent: true },
     { id: 2, title: "1000+", subtitle: "консультаций проведено", icon: "briefcase", image: null, size: "medium", accent: false },
-    { id: 3, title: "STI Dubai", subtitle: "Топ-тренер Сюцай Training Institute", icon: "globe", image: null, size: "wide", accent: false },
+    { id: 3, title: "STI Dubai", subtitle: "Сертифицированный тренер", icon: "graduation", image: null, size: "wide", accent: false },
     { id: 4, title: "KHDA", subtitle: "Сертификат Дубай + Астана", icon: "graduation", image: null, size: "medium", accent: false },
     { id: 5, title: "5 стран", subtitle: "Европа · СНГ · Корея · США · Дубай", icon: "map", image: null, size: "medium", accent: false },
   ],
