@@ -1,0 +1,21 @@
+# Второй фронт (frontend2, светлый редизайн) — second-site.alleg.kg.
+# Самодостаточный сервис: SSR-фронт тянет данные с боевого API https://alleg.kg,
+# свой Django/Postgres ему не нужен. Слушает только localhost:9095 (туннель → A).
+services:
+  web2:
+    build:
+      context: ./frontend2
+      target: runner
+      args:
+        NEXT_PUBLIC_API_URL: https://alleg.kg
+        NEXT_PUBLIC_SITE_URL: https://alleg.kg
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      # Серверные SSR-запросы (fetchHomePage) идут на боевой публичный API.
+      API_URL: https://alleg.kg
+      INTERNAL_API_URL: https://alleg.kg
+      NEXT_PUBLIC_API_URL: https://alleg.kg
+      NEXT_PUBLIC_SITE_URL: https://alleg.kg
+    ports:
+      - "127.0.0.1:9095:3000"
