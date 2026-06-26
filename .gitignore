@@ -9,8 +9,12 @@ backend/media/
 backend/staticfiles/
 
 node_modules/
+.next/
+out/
 frontend/.next/
 frontend/out/
+frontend2/.next/
+frontend2/out/
 
 .DS_Store
 .idea/

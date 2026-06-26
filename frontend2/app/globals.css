@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  /* Семантические токены светлой темы */
+  --bg: #FAF9FE;
+  --surface: #FFFFFF;
+  --text: #1B1726;
+  --text-muted: #6B6480;
+  --line: #ECE9F5;
+  --accent: #7C3AED;
+  --accent-soft: #A78BFA;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+/* html-фон = цвет overscroll (резинка iOS/Mac) и адресной строки. */
+html {
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-sans), Inter, system-ui, sans-serif;
+  background-color: var(--bg);
+  /* Очень мягкие лавандовые пятна — лёгкий воздух, без тяжёлых градиентов */
+  background-image:
+    radial-gradient(900px circle at 12% -8%, rgba(167, 139, 250, 0.10), transparent 50%),
+    radial-gradient(700px circle at 90% 4%, rgba(124, 58, 237, 0.06), transparent 55%);
+  background-attachment: fixed;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (max-width: 768px) {
+  body {
+    background-image:
+      radial-gradient(500px circle at 50% -5%, rgba(167, 139, 250, 0.10), transparent 60%);
+    background-attachment: scroll;
+  }
+}
+
+@layer base {
+  h1, h2, h3, h4 {
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    color: var(--text);
+  }
+  .font-serif {
+    font-family: var(--font-sans), Montserrat, system-ui, sans-serif;
+    font-weight: 400;
+    letter-spacing: -0.03em;
+  }
+  ::selection {
+    background: var(--accent-soft);
+    color: #fff;
+  }
+  a, button {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  img, video, iframe {
+    max-width: 100%;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8 lg:px-10;
+  }
+
+  /* Сиреневый градиентный текст (имя .gold-text сохранено для совместимости). */
+  .gold-text {
+    background: linear-gradient(120deg, #8B5CF6 0%, #7C3AED 60%, #6D28D9 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Основная кнопка: сплошной сиреневый, мягкая тень, скруглённая. */
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-xs font-semibold uppercase tracking-wider transition-all duration-200 active:scale-[0.97] sm:px-7 sm:py-3.5 sm:text-sm;
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 8px 24px -10px rgba(124, 58, 237, 0.5);
+    min-height: 48px;
+  }
+  @media (hover: hover) {
+    .btn-gold:hover {
+      background: #6D28D9;
+      transform: translateY(-1px);
+      box-shadow: 0 14px 34px -12px rgba(124, 58, 237, 0.6);
+    }
+  }
+
+  /* Вторичная кнопка: контурная на светлом, тонкая линия. */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3 text-xs font-semibold uppercase tracking-wider transition-colors active:scale-[0.97] sm:px-7 sm:py-3.5 sm:text-sm;
+    border-color: var(--line);
+    background: var(--surface);
+    color: var(--text);
+    min-height: 48px;
+  }
+  @media (hover: hover) {
+    .btn-ghost:hover {
+      border-color: var(--accent-soft);
+      color: var(--accent);
+    }
+  }
+
+  .section {
+    @apply relative py-16 sm:py-24 lg:py-32;
+  }
+
+  .eyebrow {
+    @apply text-[10px] font-semibold uppercase tracking-[0.28em] sm:text-xs sm:tracking-[0.32em];
+    color: var(--accent);
+  }
+
+  /* Карточка светлой темы: белая поверхность, тонкая линия, мягкая тень. */
+  .card-surface {
+    @apply relative overflow-hidden rounded-2xl transition-all duration-300;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    box-shadow: 0 1px 2px rgba(27, 23, 38, 0.03);
+  }
+  @media (hover: hover) {
+    .card-surface:hover {
+      border-color: rgba(167, 139, 250, 0.5);
+      box-shadow: 0 18px 40px -24px rgba(124, 58, 237, 0.35);
+      transform: translateY(-2px);
+    }
+  }
+
+  .divider-soft {
+    background: linear-gradient(90deg, transparent, var(--line), transparent);
+    height: 1px;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: #D6CCF5;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-soft);
+}
+
+@keyframes ping-slow {
+  0% { transform: scale(1); opacity: 0.55; }
+  80%, 100% { transform: scale(1.7); opacity: 0; }
+}
+.animate-ping-slow {
+  animation: ping-slow 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.65; }
+}
+.animate-pulse-soft {
+  animation: pulse-soft 2.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
