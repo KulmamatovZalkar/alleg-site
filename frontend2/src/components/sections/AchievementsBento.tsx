@@ -23,7 +23,7 @@ export default function AchievementsBento({
   items: AchievementDTO[];
 }) {
   return (
-    <div className="grid auto-rows-[160px] grid-cols-2 gap-3 sm:auto-rows-[180px] sm:gap-4 lg:grid-cols-4">
+    <div className="grid grid-cols-2 gap-3 sm:auto-rows-[180px] sm:gap-4 lg:grid-cols-4">
       {items.map((a, i) => (
         <BentoTile
           key={a.id}
@@ -51,7 +51,7 @@ function BentoTile({
   return (
     <motion.div
       {...fade}
-      className={`group relative flex flex-col justify-between overflow-hidden rounded-[1.75rem] p-6 shadow-soft transition-all duration-300 hover:-translate-y-1 sm:p-7 ${span} ${
+      className={`group relative flex min-h-[150px] flex-col justify-between gap-4 overflow-hidden rounded-[1.75rem] p-6 shadow-soft transition-all duration-300 hover:-translate-y-1 sm:min-h-0 sm:gap-0 sm:p-7 ${span} ${
         a.accent
           ? "bg-gradient-to-br from-gold-500 to-gold-700 text-white shadow-gold-glow"
           : "border border-ink-700 bg-white hover:border-gold-300/50"
@@ -73,7 +73,7 @@ function BentoTile({
         <div
           className={`font-serif leading-none tracking-tight ${
             a.accent ? "text-white" : "text-body"
-          } ${big ? "text-4xl sm:text-6xl" : "text-3xl sm:text-4xl"}`}
+          } text-4xl ${big ? "sm:text-6xl" : "sm:text-4xl"}`}
         >
           {a.title}
         </div>
