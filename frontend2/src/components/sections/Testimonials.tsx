@@ -31,7 +31,7 @@ function TestimonialCard({
   return (
     <motion.figure
       {...fade}
-      className="relative break-inside-avoid overflow-hidden rounded-[1.75rem] border border-ink-700 bg-white p-7 shadow-soft transition-all duration-300 hover:border-gold-300/50 hover:shadow-gold-glow sm:p-8"
+      className="relative break-inside-avoid overflow-hidden rounded-[1.75rem] border border-ink-700 bg-white p-6 shadow-soft transition-all duration-300 hover:border-gold-300/50 hover:shadow-gold-glow sm:p-8"
     >
       <Quote
         size={40}

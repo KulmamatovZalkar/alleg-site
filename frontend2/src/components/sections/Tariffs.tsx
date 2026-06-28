@@ -19,7 +19,7 @@ export default function Tariffs({
   };
 
   return (
-    <div className="grid items-center gap-6 lg:grid-cols-3">
+    <div className="grid gap-6 lg:grid-cols-3 lg:items-center">
       {items.map((t, i) => (
         <TariffCard
           key={t.id}
@@ -48,7 +48,7 @@ function TariffCard({
     return (
       <motion.div
         {...fade}
-        className="relative z-10 flex h-full flex-col overflow-hidden rounded-[2.25rem] bg-gradient-to-b from-gold-500 to-gold-700 p-9 text-white shadow-gold-strong lg:scale-[1.06] sm:p-10"
+        className="relative z-10 flex h-full flex-col overflow-hidden rounded-[1.75rem] bg-gradient-to-b from-gold-500 to-gold-700 p-7 text-white shadow-gold-strong sm:rounded-[2.25rem] sm:p-10 lg:scale-[1.06]"
       >
         <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-white/10 blur-2xl" />
         <div className="relative inline-flex w-fit items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-[10px] font-bold uppercase tracking-wider backdrop-blur">
@@ -95,7 +95,7 @@ function TariffCard({
   return (
     <motion.div
       {...fade}
-      className="relative flex h-full flex-col overflow-hidden rounded-[2.25rem] border border-ink-700 bg-white p-9 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-gold-300/50 hover:shadow-gold-glow sm:p-10"
+      className="relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-ink-700 bg-white p-7 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-gold-300/50 hover:shadow-gold-glow sm:rounded-[2.25rem] sm:p-10"
     >
       <div className="font-serif text-2xl text-body">{t.name}</div>
       {t.description && (

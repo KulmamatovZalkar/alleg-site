@@ -61,7 +61,7 @@ export default async function HomePage() {
                 title="Опыт и |факты|"
                 align="center"
               />
-              <div className="mt-14">
+              <div className="mt-8 sm:mt-14">
                 <AchievementsBento items={achievements} />
               </div>
             </div>
@@ -76,7 +76,7 @@ export default async function HomePage() {
                 title="Что я |решаю|"
                 align="center"
               />
-              <div className="mt-12">
+              <div className="mt-8 sm:mt-12">
                 <Pains items={pains} />
               </div>
             </div>
@@ -91,7 +91,7 @@ export default async function HomePage() {
                 title="Направления |работы|"
                 subtitle="Формат подбираем под задачу — личная консультация, аудит, бизнес-тур."
               />
-              <div className="mt-14">
+              <div className="mt-8 sm:mt-14">
                 <Services items={services} />
               </div>
             </div>
@@ -107,7 +107,7 @@ export default async function HomePage() {
                 subtitle={settings.projects_subtitle}
                 align="center"
               />
-              <div className="mt-14">
+              <div className="mt-8 sm:mt-14">
                 <Projects items={projects} />
               </div>
             </div>
@@ -122,7 +122,7 @@ export default async function HomePage() {
                 title="Из практики |консультаций|"
                 subtitle="Имена и детали изменены или скрыты по просьбе клиентов."
               />
-              <div className="mt-14">
+              <div className="mt-8 sm:mt-14">
                 <Cases items={cases} />
               </div>
             </div>
@@ -135,14 +135,14 @@ export default async function HomePage() {
               <BusinessTourBlock offer={offer} settings={settings} />
 
               {modules.length > 0 && (
-                <div className="mt-16">
+                <div className="mt-10 sm:mt-16">
                   <SectionTitle
                     eyebrow="Программа тура"
                     title="9 |модулей|"
                     subtitle="3 дня офлайн в Дубае и месяц онлайн-сопровождения."
                     align="center"
                   />
-                  <div className="mt-12">
+                  <div className="mt-8 sm:mt-12">
                     <TourModules items={modules} />
                   </div>
                 </div>
@@ -159,7 +159,7 @@ export default async function HomePage() {
                 title="Форматы |участия|"
                 align="center"
               />
-              <div className="mt-14">
+              <div className="mt-8 sm:mt-14">
                 <Tariffs items={tariffs} settings={settings} />
               </div>
             </div>
@@ -174,7 +174,7 @@ export default async function HomePage() {
                 title="От |участников|"
                 align="center"
               />
-              <div className="mt-14">
+              <div className="mt-8 sm:mt-14">
                 <Testimonials items={testimonials} />
               </div>
             </div>
@@ -189,7 +189,7 @@ export default async function HomePage() {
                 title="Частые |вопросы|"
                 align="center"
               />
-              <div className="mt-12">
+              <div className="mt-8 sm:mt-12">
                 <FAQ items={faqs} />
               </div>
             </div>

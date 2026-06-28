@@ -53,7 +53,7 @@ function CaseCard({ item: c, delay }: { item: CaseDTO; delay: number }) {
         </div>
       )}
 
-      <div className="flex flex-1 flex-col p-7 sm:p-8">
+      <div className="flex flex-1 flex-col p-6 sm:p-8">
         <div className="text-[10px] font-semibold uppercase tracking-[0.25em] text-gold-500 sm:text-xs">
           {c.industry || "Кейс"}
         </div>

@@ -30,10 +30,10 @@ function ServiceCard({
   return (
     <motion.article
       {...fade}
-      className="group relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-ink-700 bg-white p-8 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-gold-300/50 hover:shadow-gold-glow sm:p-10"
+      className="group relative flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-ink-700 bg-white p-6 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-gold-300/50 hover:shadow-gold-glow sm:rounded-[2rem] sm:p-10"
     >
       {/* большой полупрозрачный номер на фоне */}
-      <span className="pointer-events-none absolute -right-2 -top-4 select-none font-serif text-[7rem] leading-none text-gold-100/70 sm:text-[8rem]">
+      <span className="pointer-events-none absolute right-2 -top-2 select-none font-serif text-[5rem] leading-none text-gold-100/70 sm:-right-2 sm:-top-4 sm:text-[8rem]">
         {String(index + 1).padStart(2, "0")}
       </span>
 

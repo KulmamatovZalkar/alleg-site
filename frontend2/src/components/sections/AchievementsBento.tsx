@@ -25,7 +25,7 @@ export default function AchievementsBento({
   items: AchievementDTO[];
 }) {
   return (
-    <div className="grid auto-rows-[150px] grid-cols-2 gap-4 sm:auto-rows-[180px] lg:grid-cols-4">
+    <div className="grid auto-rows-[160px] grid-cols-2 gap-3 sm:auto-rows-[180px] sm:gap-4 lg:grid-cols-4">
       {items.map((a, i) => (
         <BentoTile
           key={a.id}

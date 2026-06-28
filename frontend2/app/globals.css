@@ -121,7 +121,7 @@ body {
   }
 
   .section {
-    @apply relative py-16 sm:py-24 lg:py-32;
+    @apply relative py-12 sm:py-24 lg:py-32;
   }
 
   .eyebrow {
